@@ -19,7 +19,8 @@ def scrape_all():
         "news_paragraph": news_paragraph,
         "featured_image": featured_image(browser),
         "facts": mars_facts(),
-        "last_modified": dt.datetime.now()
+        "last_modified": dt.datetime.now(),
+        "Images_titles": image_titles(browser)
     }
     # Stop webdriver and return data
     browser.quit()
@@ -51,6 +52,7 @@ def mars_news(browser):
         return None, None
 
     return news_title, news_p
+
 
 # ## JPL Space Images Featured Image
 
@@ -96,6 +98,35 @@ def mars_facts():
 
     # Convert dataframe into HTML format, add bootstrap
     return df.to_html()
+
+def image_titles(browser):
+    url = 'https://astrogeology.usgs.gov/search/results?q=hemisphere+enhanced&k1=target&v1=Mars/'
+
+    browser.visit(url)
+
+    # %%
+    # 2. Create a list to hold the images and titles.
+    hemisphere_image_urls = []
+
+    # %%
+    # 3. Write code to retrieve the image urls and titles for each hemisphere.
+    for x in range(0,4):
+        img_link_loc = browser.find_by_tag('h3')[x]
+        img_link_loc.click()
+
+        # Parse the resulting html with soup
+        html = browser.html
+        img_soup = soup(html, 'html.parser')
+
+        img_url_rel = img_soup.find('img', class_='wide-image').get('src')
+        # Use the base URL to create an absolute URL
+        img_url = f'https://astrogeology.usgs.gov/{img_url_rel}'
+        img_title = img_soup.find('h2', class_='title').text
+        
+        hemisphere_image_urls.append({'img': img_url, 'title': img_title})
+        
+        browser.back()
+    return hemisphere_image_urls
 
 # df.to_html()
 
