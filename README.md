@@ -1,2 +1,2 @@
 # Mission-To-Mars
-Module work going over scraping. 
+Practice in understanding bootstrap, Scraping, MongoDB.

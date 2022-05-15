@@ -9,6 +9,10 @@
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
   </head>
   <body>
     <div class="container">
@@ -45,10 +49,9 @@
           />
         </div>
 
-        <div class="text-left">
+        <div class="col-md-4">
           <!-- Mars Facts -->
-          <div class="row" id="mars-facts">
-            <h4 class="text-center">Mars Facts</h4>
+            <h4>Mars <ins>Facts</ins></h4>
             {{ mars.facts | safe }}
           </div>
         </div>
